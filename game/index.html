@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>Stein Schere Papier</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="../css/main.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="col col-10 row mx-auto" id="playfield">
+            <div class="card resetBorder" style="width: 33%;">
+                <div class="card-body playCard">
+                    <h5 class="card-title">Stein <i class="far fa-hand-rock"></i></h5><hr>
+                    <p class="card-text"><b>Stein</b> gewinnt gegen <b>Schere</b>.<br> Verliert gegen <b>Papier</b>.<p>
+                    <br>
+                    <button id="btnStone" class="btn btn-success">Stein wählen</button>
+                </div>
+            </div>
+            <div class="card resetBorder" style="width: 33%;">
+                <div class="card-body playCard">
+                    <h5 class="card-title">Schere <i class="far fa-hand-scissors"></i></h5><hr>
+                    <p class="card-text"><b>Schere</b> gewinnt gegen <b>Papier</b>.<br> Verliert gegen <b>Stein</b>.<p>
+                    <br>
+                    <button id="btnScissor" class="btn btn-success">Schere wählen</button>
+                </div>
+            </div>
+            <div class="card resetBorder" style="width: 33%;">
+                <div class="card-body playCard">
+                    <h5 class="card-title">Papier <i class="far fa-hand-paper"></i></h5><hr>
+                    <p class="card-text"><b>Papier</b> gewinnt gegen <b>Stein</b>.<br> Verliert gegen <b>Schere</b>.<p>
+                    <br>
+                    <button id="btnPaper" class="btn btn-success">Papier wählen</button>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center" style="margin-top: 100px">
+            <p id="scoreLabel">Dein Punktestand: 0 Punkte</p>
+            <p id="scoreComputer">Computer Punktestand: 0 Punkte</p>
+            <p id="usernameLabel">Dein Benutzername: </p>
+        </div>
+        <script>
+            var pointsPlayer = 0;
+            var pointsComputer = 0;
+            var choisePlayer = "";
+            var choiseComputer = "";
+            const username = prompt("Bitte gib deinen Benutzernamen ein:");
+
+            if(username != "")
+            {
+                document.getElementById("usernameLabel").textContent = "Dein Benutzername: " + username;
+            } else {
+                document.getElementById("usernameLabel").textContent = "Dein Benutzername: Nicht angegeben!"
+            }
+
+            document.getElementById("btnStone").onclick = function () {
+                choisePlayer = "STONE";
+                startRound();
+            }
+
+            document.getElementById("btnPaper").onclick = function () {
+                choisePlayer = "PAPER";
+                startRound();
+            }
+
+            document.getElementById("btnScissor").onclick = function () {
+                choisePlayer = "SCISSOR";
+                startRound();
+            }
+
+            function startRound()
+            {
+                setChoiseComputer();
+                setWinnerRound();
+                refreshPoints();
+            }
+
+            function setChoiseComputer()
+            {
+                var number = Math.floor(Math.random() * (4 - 1) + 1);
+                if(number == 1)
+                {
+                    choiseComputer = "STONE";
+                } else if (number == 2)
+                {
+                    choiseComputer = "PAPER";
+                } else {
+                    choiseComputer = "SCISSOR";
+                }
+            }
+
+            function setWinnerRound()
+            {
+                if(choisePlayer == choiseComputer)
+                {
+                    alert("Unentschieden!");
+                } else if(choisePlayer == "STONE")
+                {
+                    if(choiseComputer == "SCISSOR")
+                    {
+                        alert("Der Computer hat gewonnen!");
+                        pointsComputer++;
+                    } else {
+                        alert("Der Spieler hat gewonnen!");
+                        pointsPlayer++;
+                    }
+                } else if(choisePlayer == "PAPER")
+                {
+                    if(choiseComputer == "SCISSOR")
+                    {
+                        alert("Der Computer hat gewonnen!");
+                        pointsComputer++;
+                    } else {
+                        alert("Der Spieler hat gewonnen!");
+                        pointsPlayer++;
+                    }
+                } else if(choisePlayer == "SCISSOR")
+                {
+                    if(choiseComputer == "STONE")
+                    {
+                        alert("Der Computer hat gewonnen!")
+                        pointsComputer++;
+                    } else {
+                        alert("Der Spieler hat gewonnen!");
+                        pointsPlayer++;
+                    }
+                }
+            }
+
+            function refreshPoints()
+            {
+                document.getElementById("scoreLabel").textContent = "Dein Punktestand: " + pointsPlayer + " Punkte"
+                document.getElementById("scoreComputer").textContent = "Computer Punktestand: " + pointsComputer + " Punkte"
+
+                if(pointsPlayer == 10)
+                {
+                    alert("Der Spieler hat gewonnen!");
+                    location.reload();
+                } else if(pointsComputer == 10)
+                {
+                    alert("=> Der Computer hat gewonnen!");
+                    location.reload();
+                }
+            }
+        </script>
+
+
+
+        <script src="https://kit.fontawesome.com/82e48681d7.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    </body>
+</html>
